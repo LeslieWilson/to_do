@@ -1,24 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from 'react'
+import './stylesheets/DayOne.css'
+import './stylesheets/DayTwo.css'
+import './stylesheets/App.css'
+import DayOne from './containers/DayOne'
+import DayTwo from './containers/DayTwo'
+
+
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <div className="block-forms">
+      <DayOne/>
+      <DayTwo/>
+      </div>
     </div>
   );
 }
