@@ -48,11 +48,11 @@ const handleContactSubmit = (event) =>{
  return (
    <div className = "form-left">
     <h2 className = "form-left-title">Day One</h2>
-      <form>
+      <form onSubmit = {handleContactSubmit}>
          <label>
                <input
                name="field"
-               onchange = {handleFieldChange}
+               onChange = {handleFieldChange}
                value= {newTask.field}
                className="form_left_field"
                placeholder="task"

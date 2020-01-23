@@ -2,20 +2,17 @@ import React, { useState } from 'react'
 import TaskData from './TaskData.js'
 
 const FormDayTwo = (props) =>{
+const [todoList, setTodoList]=useState([
+  {field:'take out dishes'}
+])
 
-  let tasks = [
-    {task:"get bread"},
-    {task:"get milk"}
-  ]
-
-  let taskList = tasks.map(task =>{
+  let taskList = todoList.map(task => {
     return(
       <TaskData
-      field = {task.task}
+      field = {task.field}
       />
     )
   })
-
 
   const [newTask, setNewTask] = useState({
     field:""
@@ -35,11 +32,17 @@ const FormDayTwo = (props) =>{
     })
   }
 
-const handleContactSubmit = (event) =>{
+const handleTaskSubmit = (event) =>{
   event.preventDefault()
   let payload = {
     field:newTask.field
   }
+
+  setTodoList([
+    ...todoList,
+      payload
+  ])
+
   setNewTask({
     field:""
   })
@@ -48,7 +51,7 @@ const handleContactSubmit = (event) =>{
  return (
    <div className = "form-right">
    <h2 className = "form-right-title">Day Two</h2>
-     <form onSubmit = {handleContactSubmit}>
+     <form onSubmit = {handleTaskSubmit}>
         <label>
               <input
               name="field"
