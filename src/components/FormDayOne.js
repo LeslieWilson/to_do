@@ -5,16 +5,7 @@ const FormDayOne = (props) =>{
 const [todoList, setTodoList] = useState([
   {field:"get car fixed"}
 ])
-
-let taskListTwo = todoList.map(task=>{
-  return(
-    <TaskData
-    field={task.field}
-    />
-  )
-  console.log(todoList)
-})
-
+const [crossOut, setCrossOut] = useState('notCrossedOut')
 const [newTask, setNewTask] = useState({
   field:""
 })
@@ -50,6 +41,36 @@ const handleContactSubmit = (event) =>{
   })
 }
 
+
+
+
+const crossOutClick = (event, i)=>{
+  event.preventDefault()
+  if(crossOut === 'notCrossedOut'){
+    setCrossOut('crossedOut')
+  }else if(crossOut === 'crossedOut'){
+    setCrossOut("notCrossedOut")
+  }
+}
+
+let taskList = todoList.map((task, i) =>{
+  return(
+    <TaskData
+    field={task.field}
+    crossOut = {crossOut}
+    onClick = {crossOutClick}
+    />
+  )
+  console.log(todoList)
+})
+
+
+function toggleTodoCompleteAtIndex(index) {
+    const temporaryTodos = [...todoList];
+    temporaryTodos[index].isCompleted = !temporaryTodos[index].isCompleted;
+    setTodoList(temporaryTodos);
+  }
+
  return (
    <div className = "form-left">
     <h2 className = "form-left-title">Day One</h2>
@@ -63,9 +84,8 @@ const handleContactSubmit = (event) =>{
                placeholder="task"
                />
           </label>
-          <input className="button_submit_it" type="submit" value="Submit"/>
       </form>
-      {taskListTwo}
+      {taskList}
    </div>
  )
 }

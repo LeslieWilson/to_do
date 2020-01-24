@@ -61,7 +61,7 @@ const handleTaskSubmit = (event) =>{
               placeholder="task"
               />
          </label>
-         <input className="button_submit_it" type="submit" value="Submit"/>
+         
      </form>
      {taskList}
    </div>

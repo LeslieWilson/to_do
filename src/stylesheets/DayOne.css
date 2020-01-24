@@ -3,3 +3,7 @@
   width:50%;
   height:30em;
 }
+
+.crossedOut{
+text-decoration: line-through
+}
