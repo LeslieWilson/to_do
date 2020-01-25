@@ -2,14 +2,19 @@ import React, {useState} from 'react'
 import TaskData from './TaskData.js'
 
 const FormDayOne = (props) =>{
+
+// theres going to be a field or multiple with a field and iscompleted variable, setting the state
 const [todoList, setTodoList] = useState([
-  {field:"get car fixed"}
+  {field:"",
+  isCompleted:false}
 ])
-const [crossOut, setCrossOut] = useState('notCrossedOut')
+
+// this is storing what is typed in state, last thing before you see it on page
 const [newTask, setNewTask] = useState({
   field:""
 })
 
+// this is setting whats typed to be stored in state, field:""
 const handleFieldChange = (event)=>{
   setNewTask({
     ...newTask,
@@ -18,17 +23,12 @@ const handleFieldChange = (event)=>{
   })
 }
 
-const clearFields = (event)=>{
-  event.preventDefault()
-  setNewTask({
-    field:""
-  })
-}
+// this is setting the payload to equel whatever was typed into the field in first part. payload is the connection between newtask and todolist because setting payload to newtask.field. settodolist is adding the payload to todolist, then setNewTask clears the field. accessing the newtask hash and then .field gives you the value of the hash
 
 const handleContactSubmit = (event) =>{
   event.preventDefault()
   let payload = {
-    field:newTask.field
+  field:newTask.field
   }
 
   setTodoList([
@@ -42,28 +42,7 @@ const handleContactSubmit = (event) =>{
 }
 
 
-
-
-const crossOutClick = (event, i)=>{
-  event.preventDefault()
-  if(crossOut === 'notCrossedOut'){
-    setCrossOut('crossedOut')
-  }else if(crossOut === 'crossedOut'){
-    setCrossOut("notCrossedOut")
-  }
-}
-
-let taskList = todoList.map((task, i) =>{
-  return(
-    <TaskData
-    field={task.field}
-    crossOut = {crossOut}
-    onClick = {crossOutClick}
-    />
-  )
-  console.log(todoList)
-})
-
+// im mapping through todoList and this makes a new set of data, im setting it to tasklist. im mapping through and getting a task and index for each task and Im returning the component taskdata. < /> is how you create the html. this function is returning multiples of taskdata with the information inside the carrots and saving it to tasklist which you are rendering below. thats why you're not just rendering <TaskData />, because you need to render multiples. map is spreading out whats already there. Taskdata is getting set to have props. Task.field is coming from, todolist is getting mapped thru and each task has two key value pairs and you're accessing field.
 
 function toggleTodoCompleteAtIndex(index) {
     const temporaryTodos = [...todoList];
@@ -71,10 +50,21 @@ function toggleTodoCompleteAtIndex(index) {
     setTodoList(temporaryTodos);
   }
 
+let taskList = todoList.map((task, i) =>{
+  return(
+    <TaskData
+    field={task.field}
+    isCompleted = {task.isCompleted}
+    onClick = {()=>toggleTodoCompleteAtIndex(i)}
+    />
+  )
+})
+
+
  return (
    <div className = "form-left">
     <h2 className = "form-left-title">Day One</h2>
-      <form onSubmit = {handleContactSubmit}>
+      <form onSubmit ={handleContactSubmit}>
          <label>
                <input
                name="field"

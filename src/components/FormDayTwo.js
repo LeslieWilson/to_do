@@ -60,8 +60,7 @@ const handleTaskSubmit = (event) =>{
               className="form_right_field"
               placeholder="task"
               />
-         </label>
-         
+         </label>       
      </form>
      {taskList}
    </div>
