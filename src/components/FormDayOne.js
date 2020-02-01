@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import TaskData from './TaskData.js'
 
 const FormDayOne = (props) =>{
@@ -41,10 +41,35 @@ const FormDayOne = (props) =>{
     })
   }
 
-// im mapping through todoList and this makes a new set of data, im setting it to tasklist. im mapping through and getting a task and index for each task and Im returning the component taskdata. < /> is how you create the html. this function is returning multiples of taskdata with the information inside the carrots and saving it to tasklist which you are rendering below. thats why you're not just rendering <TaskData />, because you need to render multiples. map is spreading out whats already there. Taskdata passing props. the reason you need field = {task.field} even though task should already be passing this, is because todolist is an array of hashes and you still need to access each value by mapping through the array of hashes and calling the keys
+  useEffect(()=>{
+    fetch("/api/v1/todos", {
+      method: "GET",
+      headers:{
+        Accept: "application/json",
+        "content-type": "application/json"
+      }
+    })
+    .then(response => {
+      if (response.ok){
+        return response;
+      }else{
+        const errorMessage = `${response.status} (${response.statusText})`
+        const error = new Error(errorMessage)
+        throw(error);
+      }
+    })
+    .then(response => response.json())
+    .then(body=>{
+      let info = JSON.stringify(body)
+      setTodoList([
+        info
+      ])
+    })
+    .catch((error)=> {console.error("error in fetch")
+  })
+})
 
   let taskList = todoList.map((task, i) =>{
-
     function toggleTodoCompleteAtIndex(){
       const tempTodos = [...todoList]
       tempTodos[i].isCompleted =!tempTodos[i].isCompleted
@@ -59,9 +84,6 @@ const FormDayOne = (props) =>{
       />
     )
   })
-
-
-
   return(
    <div className = "form-left">
     <h2 className = "form-left-title">Day One</h2>

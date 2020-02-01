@@ -3,7 +3,7 @@ import TaskData from './TaskData.js'
 
 const FormDayTwo = (props) =>{
 const [todoList, setTodoList]=useState([
-  {field:'take out dishes'}
+  {field:'take out the dishes'}
 ])
 
   let taskList = todoList.map(task => {
@@ -60,7 +60,7 @@ const handleTaskSubmit = (event) =>{
               className="form_right_field"
               placeholder="task"
               />
-         </label>       
+         </label>
      </form>
      {taskList}
    </div>
