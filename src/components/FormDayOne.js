@@ -6,7 +6,8 @@ const FormDayOne = (props) =>{
 // making a placeholder for something called field and something called iscompleted to be one entry in a stateful todolist. whenever anything in the list gets changed you'd rerender the page with usestate.
   const [todoList, setTodoList] = useState([
     {field:"",
-    isCompleted:false}
+    isCompleted:false,
+    id: ""}
   ])
 
 // this is storing what is typed in the field as you set a new task, whenever anything gets typed in the field you change the state
@@ -123,6 +124,35 @@ setTodoList([...body])
       const tempTodos = [...todoList]
       tempTodos[i].isCompleted =!tempTodos[i].isCompleted
       setTodoList(tempTodos)
+
+      fetch("/api/v1/todos/" + task.id,{
+        method:"PATCH",
+        headers:{
+          Accept: "application/json",
+          "content-type": "application/json"
+        }
+      })
+      .then(response =>{
+        if(response.ok){
+          return response;
+        }else{
+          const errorMessage =
+          `${response.status}
+          (${response.statusText})`
+          const error = new Error(errorMessage)
+          throw(error)
+        }
+      })
+
+      .then(response => response.json())
+      .then(body=>{
+        setTodoList([...body])
+      })
+
+      .catch((error)=>{console.error("error is fetch!!!")
+    })
+
+
     }
 
     return(
@@ -130,6 +160,7 @@ setTodoList([...body])
       field={task.field}
       isCompleted = {task.isCompleted}
       onClick = {toggleTodoCompleteAtIndex}
+      id = {task.id}
       />
     )
   })

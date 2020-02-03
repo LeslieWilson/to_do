@@ -1,15 +1,20 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import TaskData from './TaskData.js'
 
 const FormDayTwo = (props) =>{
 const [todoList, setTodoList]=useState([
-  {field:'take out the dishes'}
+  {field:'take out the dishes',
+  isComplete:'false',
+  id:""}
+
 ])
 
   let taskList = todoList.map(task => {
     return(
       <TaskData
       field = {task.field}
+      isComplete={task.isComplete}
+      id={task.id}
       />
     )
   })
@@ -47,6 +52,27 @@ const handleTaskSubmit = (event) =>{
     field:""
   })
 }
+
+useEffect(()=>{
+  fetch("/api/v1/todos_2")
+  .then((response)=>{
+    if(response.ok){
+      return response
+    } else{
+      let errorMessage = `${response.status}
+      (${response.statusText})`,
+      error = new Error(errorMessage)
+      throw(error)
+    }
+  })
+  .then(response => response.json())
+  .then(body =>{
+    setTodoList([
+      ...body
+    ])
+  })
+  .catch(error => console.error(`error in fetch:${error.message}`))
+}, [])
 
  return (
    <div className = "form-right">
