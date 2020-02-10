@@ -53,10 +53,6 @@ const FormDayOne = (props) =>{
       field:newTask.field,
       isCompleted:false
     }
-    setTodoList([
-      ...todoList,
-      payload
-    ])
 
 fetch("/api/v1/todos", {
   method: "POST",
