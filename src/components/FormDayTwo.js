@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import TaskData from './TaskData.js'
+import MyDate from './MyDate.js'
 
 const FormDayTwo = (props) =>{
   const [todoList, setTodoList]=useState([
-    
+
     ])
 
   let taskList = todoList.map(task => {
@@ -99,6 +100,11 @@ const FormDayTwo = (props) =>{
 
  return (
    <div className = "form-right">
+
+   <MyDate
+   day = "tomorrow"
+   />
+
    <h2 className = "form-right-title">Day Two</h2>
      <form onSubmit = {handleTaskSubmit}>
         <label>

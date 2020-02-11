@@ -6,7 +6,6 @@ const DayTwo = (props) =>{
 
  return (
    <div className = "block-form-right">
-   <h1>write your OTHER list here</h1>
    <FormDayTwo />
    <Notes />
    </div>

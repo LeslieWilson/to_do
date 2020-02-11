@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import TaskData from './TaskData.js'
+import MyDate from './MyDate.js'
 
 const FormDayOne = (props) =>{
   const [todoList, setTodoList] = useState([
@@ -121,10 +122,13 @@ setTodoList([...body])
       onClick = {toggleTodoCompleteAtIndex}
       />
     )
+
   })
 
   return(
    <div className = "form-left">
+    <MyDate
+    day = "today"/>
     <h2 className = "form-left-title">Day One</h2>
     <form onSubmit ={handleContactSubmit}>
      <label>
