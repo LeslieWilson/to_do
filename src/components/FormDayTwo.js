@@ -48,6 +48,7 @@ const FormDayTwo = (props) =>{
     setNewTask({
       field:""
     })
+
     fetch("/api/v1/daytwo_todos", {
       method: "POST",
       body:JSON.stringify(payload),

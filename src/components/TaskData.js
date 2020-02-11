@@ -10,6 +10,7 @@ const TaskData = props =>{
 
   return(
     <div onClick ={props.onClick}>
+    <button deleteTask = {props.deleteTask}>delete</button>
     <p className={theTask}>{props.field}</p>
     </div>
   )
