@@ -88,7 +88,6 @@ setTodoList([...body])
   }
 
   let taskList = todoList.map((task, i) =>{
-
     function deleteTask(){
     fetch("api/v1/todos" + task.id,{
       method:"DESTROY",

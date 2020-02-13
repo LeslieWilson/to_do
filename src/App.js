@@ -10,9 +10,11 @@ import DayTwo from './containers/DayTwo'
 function App() {
   return (
     <div className="App">
+    
       <div className="block-forms">
       <DayOne/>
       <DayTwo/>
+
       </div>
     </div>
   );

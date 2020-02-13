@@ -1,26 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import TaskData from './TaskData.js'
 import MyDate from './MyDate.js'
+import Editable from './Editable'
 
 const FormDayTwo = (props) =>{
-  const [todoList, setTodoList]=useState([
-
-    ])
-
-  let taskList = todoList.map(task => {
-    return(
-      <TaskData
-      field = {task.field}
-      isComplete={task.isComplete}
-      id={task.id}
-      />
-    )
-  })
+  const [todoList, setTodoList]=useState([])
 
   const [newTask, setNewTask] = useState({
     field:""
   })
-
   const handleFieldChange = (event)=>{
     setNewTask({
       ...newTask,
@@ -34,6 +22,33 @@ const FormDayTwo = (props) =>{
       field:""
     })
   }
+
+  let taskList = todoList.map(task => {
+    return(
+      <>
+      <Editable
+      field = {task.field}
+      isComplete = {task.isComplete}
+      id = {task.id}
+      >
+      <input
+      name = "field"
+      value={newTask.field}
+      className = "form_right_field"
+      placeholder = "task"
+      onChange={handleFieldChange}
+      />
+
+      </Editable>
+      <TaskData
+      field = {task.field}
+      isComplete={task.isComplete}
+      id={task.id}
+      />
+      </>
+    )
+  })
+
 
   const handleTaskSubmit = (event) =>{
     event.preventDefault()
@@ -105,19 +120,6 @@ const FormDayTwo = (props) =>{
    <MyDate
    day = "tomorrow"
    />
-
-   <h2 className = "form-right-title">Day Two</h2>
-     <form onSubmit = {handleTaskSubmit}>
-        <label>
-              <input
-              name="field"
-              onChange = {handleFieldChange}
-              value={newTask.field}
-              className="form_right_field"
-              placeholder="task"
-              />
-         </label>
-     </form>
      {taskList}
    </div>
  )
