@@ -4,7 +4,11 @@ import MyDate from './MyDate.js'
 import Editable from './Editable'
 
 const FormDayTwo = (props) =>{
-  const [todoList, setTodoList]=useState([])
+  const [todoList, setTodoList]=useState([
+    {field:"",
+    isCompleted:false,
+    id: ""}
+  ])
 
   const [newTask, setNewTask] = useState({
     field:""
@@ -13,13 +17,6 @@ const FormDayTwo = (props) =>{
     setNewTask({
       ...newTask,
       [event.currentTarget.name]: event.currentTarget.value
-    })
-  }
-
-  const clearFields = (event)=>{
-    event.preventDefault()
-    setNewTask({
-      field:""
     })
   }
 
@@ -32,6 +29,7 @@ const FormDayTwo = (props) =>{
       id = {task.id}
       type = "input"
       placeholder = "write here"
+      // onSubmit = {handleTaskSubmit}
       >
       <input
       name = "field"

@@ -1,3 +1,7 @@
 .block-forms{
   display:flex;
 }
+
+.middle{
+  text-align: center;
+}

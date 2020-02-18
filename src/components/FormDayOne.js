@@ -87,10 +87,37 @@ setTodoList([...body])
     })
   }
 
-  let taskList = todoList.map((task, i) =>{
-    function deleteTask(){
-    fetch("api/v1/todos" + task.id,{
-      method:"DESTROY",
+  let deleteTask=(id)=>{
+  fetch("/api/v1/todos/" + id,{
+    method:"DESTROY",
+    headers:{
+      Accept: "application/json",
+      "content-type": "application/json"
+    }
+  })
+  .then(response =>{
+    if(response.ok){
+      return response;
+    }else{
+      const errorMessage =
+      `${response.status}
+      (${response.statusText})`
+      const error = new Error(errorMessage)
+      throw(error)
+    }
+  })
+  .catch((error)=>{console.error("error is fetch!!!")
+  })
+  }
+
+
+  let toggleTodoCompleteAtIndex()=>{
+    const tempTodos = [...todoList]
+    tempTodos[i].isCompleted =!tempTodos[i].isCompleted
+    setTodoList(tempTodos)
+
+    fetch("/api/v1/todos/" + task.id,{
+      method:"PATCH",
       headers:{
         Accept: "application/json",
         "content-type": "application/json"
@@ -109,44 +136,22 @@ setTodoList([...body])
     })
     .catch((error)=>{console.error("error is fetch!!!")
   })
-}
+  }
 
-    function toggleTodoCompleteAtIndex(){
-      const tempTodos = [...todoList]
-      tempTodos[i].isCompleted =!tempTodos[i].isCompleted
-      setTodoList(tempTodos)
 
-      fetch("/api/v1/todos/" + task.id,{
-        method:"PATCH",
-        headers:{
-          Accept: "application/json",
-          "content-type": "application/json"
-        }
-      })
-      .then(response =>{
-        if(response.ok){
-          return response;
-        }else{
-          const errorMessage =
-          `${response.status}
-          (${response.statusText})`
-          const error = new Error(errorMessage)
-          throw(error)
-        }
-      })
-      .catch((error)=>{console.error("error is fetch!!!")
-    })
-    }
+  let taskList = todoList.map((task, i) =>{
 
     return(
       <TaskData
       field={task.field}
       isCompleted = {task.isCompleted}
       onClick = {toggleTodoCompleteAtIndex}
-      deleteTask = {deleteTask}
+      deleteTask= { () => {
+	      deleteTask(task.id);
+}}
+      id = {task.id}
       />
     )
-
   })
 
   return(
