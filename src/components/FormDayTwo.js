@@ -27,9 +27,11 @@ const FormDayTwo = (props) =>{
     return(
       <>
       <Editable
-      field = {task.field}
+      text = {task.field}
       isComplete = {task.isComplete}
       id = {task.id}
+      type = "input"
+      placeholder = "write here"
       >
       <input
       name = "field"
@@ -40,6 +42,7 @@ const FormDayTwo = (props) =>{
       />
 
       </Editable>
+
       <TaskData
       field = {task.field}
       isComplete={task.isComplete}
@@ -48,7 +51,6 @@ const FormDayTwo = (props) =>{
       </>
     )
   })
-
 
   const handleTaskSubmit = (event) =>{
     event.preventDefault()
