@@ -89,7 +89,7 @@ setTodoList([...body])
 
   let deleteTask=(id)=>{
   fetch("/api/v1/todos/" + id,{
-    method:"DESTROY",
+    method:"DELETE",
     headers:{
       Accept: "application/json",
       "content-type": "application/json"
@@ -110,13 +110,13 @@ setTodoList([...body])
   })
   }
 
-
-  let toggleTodoCompleteAtIndex()=>{
+  let toggleTodoCompleteAtIndex=(i)=>{
     const tempTodos = [...todoList]
     tempTodos[i].isCompleted =!tempTodos[i].isCompleted
     setTodoList(tempTodos)
-
-    fetch("/api/v1/todos/" + task.id,{
+    let obj = tempTodos.find(obj => obj.id === 3);
+    if(obj){
+    fetch("/api/v1/todos/" + i,{
       method:"PATCH",
       headers:{
         Accept: "application/json",
@@ -134,21 +134,22 @@ setTodoList([...body])
         throw(error)
       }
     })
-    .catch((error)=>{console.error("error is fetch!!!")
+    .catch((error)=>{console.error("error in fetch!!!")
   })
   }
-
+}
 
   let taskList = todoList.map((task, i) =>{
-
     return(
       <TaskData
       field={task.field}
       isCompleted = {task.isCompleted}
-      onClick = {toggleTodoCompleteAtIndex}
+      onClick = { () => {
+        toggleTodoCompleteAtIndex(task.id)
+      }}
       deleteTask= { () => {
 	      deleteTask(task.id);
-}}
+      }}
       id = {task.id}
       />
     )
